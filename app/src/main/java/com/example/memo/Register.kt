@@ -37,7 +37,7 @@ class Register : AppCompatActivity() {
             finish()
         }
 
-        var gotoLoginButton = findViewById<Button>(R.id.goto_LoginPageButton)
+        val gotoLoginButton = findViewById<Button>(R.id.goto_LoginPageButton)
         gotoLoginButton.setOnClickListener {
             val intent = Intent(this, Login::class.java)
             startActivity(intent)

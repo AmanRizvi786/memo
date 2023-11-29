@@ -1,37 +1,40 @@
 package com.example.memo
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 
-
-open class Home : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setUpTabs()
-    }
-
-    private fun setUpTabs() {
-        val myAdapter = ViewPagerAdapter(supportFragmentManager)
-
-        myAdapter.addFragment(Product(), "Products")
-        myAdapter.addFragment(Fav(), "Favourites")
+class Home : Fragment() {
 
 
-        val viewPager = findViewById<ViewPager>(R.id.viewPager)
-        viewPager.adapter = myAdapter
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        val tabs = findViewById<TabLayout>(R.id.tabs)
+        val viewPager = view.findViewById<ViewPager>(R.id.viewPager)
+        val tabs = view.findViewById<TabLayout>(R.id.tabs)
+
+        // Set up the ViewPager and TabLayout
+        val adapter = ViewPagerAdapter(childFragmentManager)
+        adapter.addFragment(Product(), "Products")
+        adapter.addFragment(Fav(), "Favourites")
+        tabs.getTabAt(0)?.setIcon(R.drawable.baseline_dataset_24)
+        tabs.getTabAt(1)?.setIcon(R.drawable.baseline_favorite_24)
+        // Add more fragments as needed
+
+        viewPager.adapter = adapter
         tabs.setupWithViewPager(viewPager)
 
-        tabs.getTabAt(0)!!.setIcon(R.drawable.baseline_home_work_24)
-        tabs.getTabAt(1)!!.setIcon(R.drawable.baseline_interests_24)
+        return view
     }
+
 }
-
-
 
 
